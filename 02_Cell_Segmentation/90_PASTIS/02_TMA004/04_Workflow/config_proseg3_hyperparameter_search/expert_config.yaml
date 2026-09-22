@@ -1,0 +1,24 @@
+  description: |
+    This config file works with the snakefile_proseg_pipeline.py workflow for Proseg analysis data. 
+    This config correspond to the expert parameters
+
+  author: "Mazuel Adrien"
+
+  # Proseg specific params
+  proseg:
+    min_qv: 20 # Filter out transcripts with quality values below this threshold
+    diffusion_probability: ["0.2", "0.3", "0.4"] # Probability of transcript diffusion
+    ncomponents: "10" # number of mixture components
+    voxel_layers: ["10", "15", "20"] # Number of layers of voxels on the z-axis to use (3D segmentation)
+    nuc_assignment: ["0", "0.1"] # Probability that the initial nuclear assignment is incorrect
+    datatype: "xenium" # Either xenium or custom if working on other technology or xenium update their metadata
+    # custom parameters only used if datatype is custom
+    x: "X_COLUMN" # Name of column containing the x coordinate
+    y: "Y_COLUMN" # Name of column containing the y coordinate
+    z: "Z_COLUMN" # Name of column containing the z coordinate
+    cell_col: "COMPARTMENT_COLUMN" # Name of column containing the cellular compartment
+    nuc_name: "COMPARTMENT_NUCLEAR" # Value in the cellular compartment column indicated the nucleus
+    fov_col: "FOV_COLUMN" # Name of column containing the field of view
+    cell_id: "CELL_ID_COLUMN" # Name of column containing the cell ID
+    cell_id_unassigned: "CELL_ID_UNASSIGNED" # Value in the cell ID column indicating an unassigned transcript
+    qv: "QV_COLUMN" # Name of column containing the quality value

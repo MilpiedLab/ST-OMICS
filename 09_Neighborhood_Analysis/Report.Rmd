@@ -1,0 +1,118 @@
+---
+output:
+  html_document:
+    theme: yeti
+    highlight: espresso
+    toc: true
+    toc_float: false
+    toc_depth: 2
+---
+
+```{r rmd_setKnitrOptions, include=FALSE}
+# Set hook for PNG optimization ('optipng' must be installed on system)
+#knitr::knit_hooks$set(optipng = knitr::hook_optipng)
+
+# Set chunks default options
+knitr::opts_chunk$set(results='asis',
+                      echo = FALSE,           # Do not show chunks code
+                      message = FALSE,        # Hide R regular text output in reports
+                      warning = FALSE,        # Show warning messages
+                      error = TRUE,           # Do not stop generating report on errors
+                      cache = FALSE,          # Disable chunk result caching
+                      cache.comments = FALSE, # Changing comments does not invalidate cache
+                      fig.dim = c(5, 5),      # Size of device for R figures
+                      autodep = TRUE,         # Automatic chunk dependencies if cache enabled
+                      optipng = '-o2');       # PNG optimization level (2=default, 5=slow, 7=very slow)
+```
+
+```{r rmd_loadDependencies, warning=FALSE, cache = FALSE}
+### Load libraries, global functions/variables, and chunks
+source( file.path( WORKING_DIR, "00_generalDeps.R"));
+source( file.path( WORKING_DIR, "../00_Functions/00_General.R"));
+source( file.path( WORKING_DIR, "../00_Functions/01_Read_Xenium.R"));
+source( file.path( WORKING_DIR, "../00_Functions/02_Quality_Control.R"));
+source( file.path( WORKING_DIR, "../00_Functions/03_Normalisation.R"));
+source( file.path( WORKING_DIR, "../00_Functions/04_Clustering.R"));
+source( file.path( WORKING_DIR, "../00_Functions/05_Marker_Genes.R"));
+source( file.path( WORKING_DIR, "../00_Functions/07_Integration.R"));
+source( file.path( WORKING_DIR, "../00_Functions/08_Cell_Annotation.R"));
+source( file.path( WORKING_DIR, "../00_Functions/09_Neighborhood_Analysis.R"));
+```
+
+```{r rmd_init_report, child = 'Report_Init.Rmd'}
+## Load the initialization elements for the report
+```
+
+```{r rmd_plotlyinit}
+# Initialize for plotly
+cat('<div style="display: none">');
+htmltools::tagList(plot_ly(x = rnorm(10), type = "histogram"))
+cat('</div>');
+```
+
+```{r, echo=FALSE,include = FALSE}
+# You need this code to conduct the magic dependences attaching...
+DT::datatable(matrix(),extensions = 'Buttons',  options = list(dom = 'Blfrtip', buttons = c('excel', "csv")))
+```
+
+```{r rmd_loadChunks, warning=FALSE, cache = FALSE}
+
+# Import chunks from source files
+read_chunk( path=file.path( WORKING_DIR, "01_prepareData.R"));
+read_chunk( path=file.path( WORKING_DIR, "02_Banksy_Analysis.R"));
+read_chunk( path=file.path( WORKING_DIR, "03a_Characterize_Sample_Wasserstein.R"));
+read_chunk( path=file.path( WORKING_DIR, "03b_Characterize_Sample_JS.R"));
+read_chunk( path=file.path( WORKING_DIR, "03c_Compare_Intra_Sample_Neighborhoods.R"));
+read_chunk( path=file.path( WORKING_DIR, "03d_Random_Neighborhoods_Comparison.R"));
+read_chunk( path=file.path( WORKING_DIR, "04_Compare_Inter_Sample_Neighborhoods.R"));
+read_chunk( path=file.path( WORKING_DIR, "05_Merge_Samples_Neighborhoods.R"));
+read_chunk( path=file.path( WORKING_DIR, "90_finalizeSession.R"));
+```
+
+---
+title: `r paste( GLOBAL_DESCRIPTION, EXPERIMENT_NAME, ANALYSIS_STEP_NAME, sep ="<BR>")`
+---
+
+```{r rmd_prepare_data, warning = FALSE, fig.dim = c(9,6)}
+<<prepare_data>>
+```
+
+```{r rmd_banksy_analysis, warning = FALSE, fig.dim = c(9,6)}
+<<banksy_analysis>>
+```
+
+```{r rmd_merge_banksy_subsets, warning = FALSE, fig.dim = c(9,6)}
+<<merge_banksy_subsets>>
+```
+
+```{r rmd_characterize_sample_wasserstein, warning = FALSE, fig.dim = c(16,10)}
+<<characterize_sample_wasserstein>>
+```
+
+```{r rmd_characterize_sample_JS, warning = FALSE, fig.dim = c(16,10)}
+<<characterize_sample_JS>>
+```
+
+```{r rmd_compare_intra_sample_neighborhoods, warning = FALSE, fig.dim = c(24,15)}
+<<compare_intra_sample_neighborhoods>>
+```
+
+```{r rmd_random_neighborhood_comparison, warning = FALSE, fig.dim = c(16,10)}
+<<random_neighborhood_comparison>>
+```
+
+```{r rmd_compare_inter_sample_neighborhoods, warning = FALSE, fig.dim = c(24,15)}
+<<compare_inter_sample_neighborhoods>>
+```
+
+```{r rmd_merge_samples_neighborhoods_heatmaps, warning = FALSE, fig.dim = c(24,15)}
+<<merge_samples_neighborhoods_heatmaps>>
+```
+
+```{r rmd_merge_samples_neighborhoods_tissue_views, warning = FALSE, fig.dim = c(9,6)}
+<<merge_samples_neighborhoods_tissue_views>>
+```
+
+```{r rmd_final_saveSessionImage, warning = TRUE, fig.dim = c(9,6)}
+<<final_saveSessionImage>>
+```

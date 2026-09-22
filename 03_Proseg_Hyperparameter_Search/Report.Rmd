@@ -1,0 +1,72 @@
+---
+output:
+  html_document:
+    theme: yeti
+    highlight: espresso
+    toc: true
+    toc_float: false
+    toc_depth: 2
+---
+
+```{r rmd_setKnitrOptions, include=FALSE}
+# Set hook for PNG optimization ('optipng' must be installed on system)
+#knitr::knit_hooks$set(optipng = knitr::hook_optipng)
+
+# Set chunks default options
+knitr::opts_chunk$set(results='asis',
+                      echo = FALSE,           # Do not show chunks code
+                      message = FALSE,        # Hide R regular text output in reports
+                      warning = FALSE,        # Show warning messages
+                      error = TRUE,           # Do not stop generating report on errors
+                      cache = FALSE,          # Disable chunk result caching
+                      cache.comments = FALSE, # Changing comments does not invalidate cache
+                      fig.dim = c(5, 5),      # Size of device for R figures
+                      autodep = TRUE,         # Automatic chunk dependencies if cache enabled
+                      optipng = '-o2');       # PNG optimization level (2=default, 5=slow, 7=very slow)
+```
+
+```{r rmd_loadDependencies, warning=FALSE, cache = FALSE}
+### Load libraries, global functions/variables, and chunks
+source( file.path( WORKING_DIR, "00_generalDeps.R"));
+source( file.path( WORKING_DIR, "../00_Functions/00_General.R"));
+source( file.path( WORKING_DIR, "../00_Functions/01_Read_Xenium.R"));
+source( file.path( WORKING_DIR, "../00_Functions/02_Quality_Control.R"));
+```
+
+```{r rmd_init_report, child = 'Report_Init.Rmd'}
+## Load the initialization elements for the report
+```
+
+```{r, echo=FALSE,include = FALSE}
+# You need this code to conduct the magic dependences attaching...
+DT::datatable(matrix(),extensions = 'Buttons',  options = list(dom = 'Blfrtip', buttons = c('excel', "csv")))
+```
+
+```{r rmd_loadChunks, warning=FALSE, cache = FALSE}
+
+# Import chunks from source files
+read_chunk( path=file.path( WORKING_DIR, "01_PrepareData.R"));
+read_chunk( path=file.path( WORKING_DIR, "02_plot_MECR_scores.R"));
+read_chunk( path=file.path( WORKING_DIR, "03_plot_correlations.R"));
+read_chunk( path=file.path( WORKING_DIR, "90_finalizeSession.R"));
+```
+
+---
+title: `r paste( GLOBAL_DESCRIPTION, EXPERIMENT_NAME, ANALYSIS_STEP_NAME, sep ="<BR>")`
+---
+
+```{r rmd_prepare_data, warning = FALSE, fig.dim = c(9,6)}
+<<prepare_data>>
+```
+
+```{r rmd_plot_mecr_scores, warning = FALSE, fig.dim = c(9,6)}
+<<plot_mecr_scores>>
+```
+
+```{r rmd_plot_correlations, warning = FALSE, fig.dim = c(9,6)}
+<<plot_correlations>>
+```
+
+```{r rmd_final_saveSessionImage, warning = FALSE, fig.dim = c(9,6)}
+<<final_saveSessionImage>>
+```

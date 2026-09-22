@@ -1,0 +1,17 @@
+  description: |
+    This config file works with the snakefile_proseg_pipeline.py workflow for Proseg analysis data and correspond to the basic usage. 
+    This file contain the basic parameters
+
+  author: "Mazuel Adrien"
+
+  # Define raw data path and output path
+  PATH_RAW_DATA_XENIUM: "/mnt/DOSI/PMLAB/BIOINFO/Project/STOmics/Xenium_STOmics_Final_Workflow/00_RawData/250708_Xenium_152942_20250708_PM_TMA002_TMA004/" # Name of your Xenium folder, if you only have one sample only write "00_RawData/"
+  PATH_ANALYSIS_OUTPUT: "/mnt/DOSI/PMLAB/BIOINFO/Project/STOmics/Xenium_STOmics_Final_Workflow/05_Output/02_Cell_Segmentation/02_TMA004/" # Name of the analysis output directory, all the results will be stored in this folder
+
+  # Sample list
+  samples: "output-XETG00445__0055738__TMA004_TEMOIN__20250708__153012" # Comma separated sample list, if your <YOUR_RAW_DATA_DIRECTORY> is only one sample write it here and not in PATH_RAW_DATA_XENIUM
+
+  # Proseg specific params
+  proseg:
+    threads: 100 # Number of CPU threads
+    rna_diffusion: "" # By default Proseg models cells as leaky, under the assumption that some amount of RNA leaks from cells and diffuses elsewhere. if = "" is active, if = "--no-diffusion" is inactive

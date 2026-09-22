@@ -1,0 +1,11 @@
+  description: |
+    This config file works with the snakefile_proseg_pipeline.py workflow for Proseg analysis data. 
+    Those parameters are parameters that should not be modified
+
+  author: "Mazuel Adrien"
+
+  SEED: 2023
+
+  docker:
+    xenium_ranger: "/mnt/DOSI/PMLAB/BIOINFO/Project/STOmics/Xenium_STOmics_Final_Workflow/02_Container/Xenium_Ranger_4_0.sif"
+    proseg: "/mnt/DOSI/PMLAB/BIOINFO/Project/STOmics/Xenium_STOmics_Final_Workflow/02_Container/Xenium_Analysis_proseg3.sif"
