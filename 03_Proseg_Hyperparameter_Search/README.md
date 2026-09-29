@@ -10,7 +10,7 @@ Docker use: "STOmics_Seurat5".
 
 ### 1. Retrieve mutually exclusive gene pairs
 
-Retrieve the mutually exclusive genes identified in step 01_Find_Mutually_Exclusive_Gene_Pairs. These genes are required to compute the MECR metric, which is the primary measure used here to assess cell segmentation quality.
+Retrieve the mutually exclusive genes identified in step 01_Find_Mutually_Exclusive_Gene_Pairs. These genes are required to compute the MECR metric, which is the primary metric used here to assess cell segmentation quality.
 
 From this set of genes, all heterotypic pairs (i.e., pairs between different cell types) are generated. These pairs correspond to the mutually exclusive gene pairs used to evaluate data quality.
 
