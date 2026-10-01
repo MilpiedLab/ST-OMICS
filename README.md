@@ -33,7 +33,7 @@ The code provided in this repository is organized according to the structure out
 
 The example data used to illustrate the Xenium analysis workflow, along with the corresponding HTML analysis reports and singularity images, are available for download at the following link:
 
-[XXX]
+[https://doi.org/10.5281/zenodo.23082667]
 
 # **Find mutually exclusive gene pairs**
 
